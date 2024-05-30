@@ -1,6 +1,7 @@
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import get_user_model
 
 from userauths.models import Profile, User
 
@@ -59,35 +60,18 @@ class RegisterSerializer(serializers.ModelSerializer):
 
             return user
 
-class NotUsedRegisterSerializer(serializers.ModelSerializer):
-    password1 = serializers.CharField(write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
-
-    class Meta:
-        model = User
-        fields = ('__all__')
-
-    def clean_password2(self):
-        # Check that the two password entries match
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
-            raise serializers.ValidationError("Passwords don't match")
-        return password2
-
-    def save(self, commit=True):
-        # Save the provided password in hashed format
-        user = super(User, self).save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return user
-
-
 class UserSerializer(serializers.ModelSerializer):
+    """Serializer for the user object"""
+
     class Meta:
-        model = User
-        fields = "__all__"
+        model = get_user_model()
+        fields = ['full_name', 'email', 'password', 'phone']
+        extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
+
+    def create(self, validated_data):
+        """Create and return a user with encrypted password"""
+        return get_user_model().objects.create_user(**validated_data)
+
 
 class ProfileSerializer(serializers.ModelSerializer):
      #user = UserSerializer()
