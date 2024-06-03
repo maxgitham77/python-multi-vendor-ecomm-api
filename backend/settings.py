@@ -145,7 +145,7 @@ USE_TZ = True
 #STATIC_ROOT= BASE_DIR / 'staticfiles'
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-APPS_DIR = ROOT_DIR / "backend" #Main Django App Folder Name
+APPS_DIR = ROOT_DIR / "python-multi-vendor-ecomm-api" #Main Django App Folder Name
 
 STATIC_ROOT = str(ROOT_DIR / "staticfiles")
 
