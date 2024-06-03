@@ -144,8 +144,21 @@ USE_TZ = True
 #STATICFILES_DIRS=[BASE_DIR / 'static']
 #STATIC_ROOT= BASE_DIR / 'staticfiles'
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
+APPS_DIR = ROOT_DIR / "backend" #Main Django App Folder Name
+
+STATIC_ROOT = str(ROOT_DIR / "staticfiles")
+
+STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [
+    str(APPS_DIR / "static"),
+]
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 
 MEDIA_URL = '/media/'
