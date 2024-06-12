@@ -19,6 +19,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "Category"
         ordering = ['title']
+        managed = True
 
 class Product(models.Model):
     
