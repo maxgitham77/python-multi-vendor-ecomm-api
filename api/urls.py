@@ -8,5 +8,12 @@ urlpatterns = [
     path('user/token/refresh/', TokenRefreshView.as_view()),
     path('user/register/', userauths_views.RegisterView.as_view()),
     path('user/password-reset/<email>/', userauths_views.PasswordResetEmailVerify.as_view()),
-    path('user/password-change/', userauths_views.PasswordChangeView.as_view())
+    path('user/password-change/', userauths_views.PasswordChangeView.as_view()),
+    
+    # Store Endpoints
+    path('category/', store_views.CategoryListAPIView.as_view()),
+    path('products/', store_views.ProductListAPIView.as_view()),
+    path('products/<slug>/', store_views.ProductDetailAPIView.as_view()),
+    path('cart-view/', store_views.CartAPIView.as_view()),
+    
 ]

@@ -92,15 +92,10 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.postgresql_psycopg2",
-        "NAME": "djangoecommapi",
-        "USER": "admin",
-        "PASSWORD": "HAM##jane78",
-        "HOST": "localhost",
-        "PORT": ""
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -139,6 +134,11 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR, 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+#STATIC_URL = '/static/'
+#STATICFILES_DIRS=[BASE_DIR / 'static']
+#STATIC_ROOT= BASE_DIR / 'staticfiles'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
