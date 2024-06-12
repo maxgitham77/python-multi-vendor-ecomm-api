@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 from datetime import timedelta
 
@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-3sem*tlz356h(6b*b&g@ymta!3k=7oefu*wbwkaztaqqsmb#l#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['3.123.202.90', 'localhost']
 
 
 # Application definition
@@ -92,10 +92,15 @@ WSGI_APPLICATION = "backend.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "djangoecommapi",
+        "USER": "admin",
+        "PASSWORD": "HAM##jane78",
+        "HOST": "localhost",
+        "PORT": ""
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -131,14 +136,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR, 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+#STATIC_URL = "static/"
+#STATICFILES_DIRS = [BASE_DIR, 'static']
+#STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 #STATIC_URL = '/static/'
 #STATICFILES_DIRS=[BASE_DIR / 'static']
 #STATIC_ROOT= BASE_DIR / 'staticfiles'
 
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
+APPS_DIR = ROOT_DIR / "python-multi-vendor-ecomm-api" #Main Django App Folder Name
+
+STATIC_ROOT = str(ROOT_DIR / "staticfiles")
+
+STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [
+    str(APPS_DIR / "static"),
+]
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
